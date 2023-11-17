@@ -8,6 +8,8 @@ using namespace std;
 #define DELAY_CONST 100000
 
 bool exitFlag;
+char coordinates[9][19]; 
+
 
 void Initialize(void);
 void GetInput(void);
@@ -56,7 +58,35 @@ void RunLogic(void)
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();   
+
+    int row, col;
+
+        for(row=0; row <= 8; row++){
+        for(col=0; col <= 18; col++){
+            if(row == 0 || row == 8 || col == 0 || col == 18){
+                coordinates[row][col] = '#';
+
+            } else{
+                coordinates[row][col] = ' ';
+            }
+
+
+        }
+    } 
+
+
+    int x, y;
+    
+
+    for(x=0; x <= 8; x++){
+        
+        for(y=0; y <= 18; y++){
+            MacUILib_printf("%c", coordinates[x][y]);
+        }
+
+        MacUILib_printf("\n");
+    }
 
 }
 
