@@ -76,8 +76,15 @@ void DrawScreen(void)
     } 
 
 
+
     int x, y;
+
+    // arbitrary symbols
     
+    coordinates[4][6] = 'L';
+    coordinates[3][7] = 'f';
+    coordinates[2][1] = 'a';
+    coordinates[5][4] = 'Q';
 
     for(x=0; x <= 8; x++){
         
