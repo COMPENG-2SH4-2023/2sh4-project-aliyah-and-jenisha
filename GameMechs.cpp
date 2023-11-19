@@ -16,11 +16,13 @@ GameMechs::GameMechs(int boardX, int boardY)
 
 bool GameMechs::getExitFlagStatus()
 {
+    return exitFlag;
 
 }
 
 char GameMechs::getInput()
 {
+    return input;
 
 }
 
