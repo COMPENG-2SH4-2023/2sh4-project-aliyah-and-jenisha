@@ -33,7 +33,8 @@ int main(void)
     {
         GetInput();
         RunLogic();
-        object->updatePlayerDir();
+        // object->updatePlayerDir();
+        // object->movePlayer();
         DrawScreen();
         LoopDelay();
     }

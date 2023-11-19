@@ -138,5 +138,22 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
+
+    objPos* move;
+
+    switch(myDir){
+        case UP:
+            move->y--;
+            break;
+        case DOWN:
+            move->y++;
+            break;
+        case RIGHT:
+            move->x++;
+            break;
+        case LEFT:
+            move->x--;
+            break;
+    }
 }
 
