@@ -1,6 +1,8 @@
 #include <iostream>
 #include "MacUILib.h"
 #include "objPos.h"
+#include "Player.h"
+
 
 
 using namespace std;
@@ -9,7 +11,9 @@ using namespace std;
 
 bool exitFlag;
 char coordinates[9][19]; 
+char input; 
 
+//Player object;
 
 void Initialize(void);
 void GetInput(void);
@@ -48,11 +52,25 @@ void Initialize(void)
 
 void GetInput(void)
 {
+
+    if(MacUILib_hasChar() !=0){
+
+  
+        input = MacUILib_getChar();
+
+        // speedInput = MacUILib_getChar();
+       
+     
+    
+    } 
    
 }
 
 void RunLogic(void)
 {
+       
+
+    
     
 }
 
