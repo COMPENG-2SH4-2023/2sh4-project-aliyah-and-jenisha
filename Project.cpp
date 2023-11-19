@@ -13,7 +13,7 @@ bool exitFlag;
 char coordinates[9][19]; 
 char input; 
 
-//Player object;
+Player* object;
 
 void Initialize(void);
 void GetInput(void);
@@ -33,6 +33,7 @@ int main(void)
     {
         GetInput();
         RunLogic();
+        object->updatePlayerDir();
         DrawScreen();
         LoopDelay();
     }
