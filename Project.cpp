@@ -14,6 +14,7 @@ char coordinates[9][19];
 char input; 
 
 Player* object;
+objPos myPos;
 
 void Initialize(void);
 void GetInput(void);
@@ -48,6 +49,8 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
+
+    myPos.setObjPos(2,3,'*');
 
     exitFlag = false;
 }
@@ -105,6 +108,7 @@ void DrawScreen(void)
     coordinates[3][7] = 'f';
     coordinates[2][1] = 'a';
     coordinates[5][4] = 'Q';
+    coordinates[myPos.x][myPos.y] = myPos.symbol;
 
     for(x=0; x <= 8; x++){
         
