@@ -58,16 +58,7 @@ void Initialize(void)
 void GetInput(void)
 {
 
-    if(MacUILib_hasChar() !=0){
-
-  
-        input = MacUILib_getChar();
-
-        // speedInput = MacUILib_getChar();
-       
-     
     
-    } 
    
 }
 

@@ -1,5 +1,7 @@
 #include "Player.h"
 
+objPos playerPos;
+
 
 Player::Player(GameMechs* thisGMRef)
 {
@@ -27,13 +29,7 @@ void Player::getPlayerPos(objPos &returnPos)
 {
     // return the reference to the playerPos arrray list
 
-    // int i;
-
-    // for(i = 0; i < 10; i++){
-    //     if(playerPos[i] != NULL){
-    //         playerPos[i] = returnPos;
-    //     }
-    // }
+    return playerPos.setObjPos(playerPos.x,playerPos.y,playerPos.symbol);
 
     
 
@@ -47,9 +43,10 @@ void Player::updatePlayerDir()
 
     GameMechs* thisGMRef;
 
-    char input,previousDirection;
+    char input, previousDirection;
 
     input = thisGMRef->getInput();
+
 
     if(input != 0)  // if not null character
     { 
@@ -139,20 +136,18 @@ void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
 
-    objPos* move;
-
     switch(myDir){
         case UP:
-            move->y--;
+            playerPos.y--;
             break;
         case DOWN:
-            move->y++;
+            playerPos.y++;
             break;
         case RIGHT:
-            move->x++;
+            playerPos.x++;
             break;
         case LEFT:
-            move->x--;
+            playerPos.x--;
             break;
     }
 }
