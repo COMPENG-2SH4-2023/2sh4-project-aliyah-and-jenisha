@@ -75,6 +75,8 @@ void GetInput(void)
 void RunLogic(void)
 {
     char inputChar = myGM->getInput();
+    object->updatePlayerDir();
+    object->movePlayer();
        
 }
 
@@ -96,10 +98,13 @@ void DrawScreen(void)
             }
 
             else if (x == tempPos.x && y == tempPos.y) {
-                coordinates[y][x] = myPos.symbol;
+                matrix[y][x]=tempPos.symbol;
 
-                myPos.x = x;
-                myPos.y = y;            }
+                //coordinates[y][x] = myPos.symbol;
+
+               // myPos.x = x;
+               // myPos.y = y;           
+                }
 
             else {
                 matrix[y][x] = ' ';
