@@ -28,7 +28,7 @@ GameMechs::~GameMechs(){}
 
 bool GameMechs::getExitFlagStatus()
 {
-
+    return exitFlag;
 }
 
 char GameMechs::getInput()
