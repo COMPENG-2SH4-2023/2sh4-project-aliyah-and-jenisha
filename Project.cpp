@@ -96,8 +96,10 @@ void DrawScreen(void)
             }
 
             else if (x == tempPos.x && y == tempPos.y) {
-                matrix[y][x]= tempPos.symbol;
-            }
+                coordinates[y][x] = myPos.symbol;
+
+                myPos.x = x;
+                myPos.y = y;            }
 
             else {
                 matrix[y][x] = ' ';
