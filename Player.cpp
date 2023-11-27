@@ -8,10 +8,7 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
-    int xBoardSize, yBoardSize;
-
-    xBoardSize = mainGameMechsRef->getBoardSizeX();
-    yBoardSize = mainGameMechsRef->getBoardSizeY();
+    playerPos.setObjPos(mainGameMechsRef->getBoardSizeX() /2, mainGameMechsRef->getBoardSizeY() /2, '@');
 
     
 
@@ -27,6 +24,7 @@ Player::~Player()
 
 void Player::getPlayerPos(objPos &returnPos)
 {
+     returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
     // return the reference to the playerPos arrray list
 
     return playerPos.setObjPos(playerPos.x,playerPos.y,playerPos.symbol);

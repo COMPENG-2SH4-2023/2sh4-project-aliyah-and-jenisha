@@ -1,6 +1,7 @@
 #include <iostream>
 #include "MacUILib.h"
 #include "objPos.h"
+#include "GameMechs.h"
 #include "Player.h"
 
 
@@ -13,6 +14,7 @@ bool exitFlag;
 char coordinates[9][19]; 
 char input; 
 
+GameMechs* myGM;
 Player* object;
 objPos myPos;
 
@@ -30,7 +32,7 @@ int main(void)
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(myGM->getExitFlagStatus() == false)  
     {
         GetInput();
         RunLogic();
@@ -52,28 +54,75 @@ void Initialize(void)
 
     myPos.setObjPos(2,3,'*');
 
-    exitFlag = false;
+    myGM = new GameMechs(26, 13); //make board size 26x13
+    object = new Player(myGM);
+
+    //exitFlag = false;
 }
 
 void GetInput(void)
 {
 
+    if(MacUILib_hasChar() !=0){
+        char input = MacUILib_getChar();
+
+        myGM->setInput(input); //using setter method to collect input 
+        // speedInput = MacUILib_getChar();
     
+    } 
    
 }
 
 void RunLogic(void)
 {
+    char inputChar = myGM->getInput();
        
-
-    
-    
 }
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen();   
+    MacUILib_clearScreen();    
 
+    char matrix[myGM->getBoardSizeY()][myGM->getBoardSizeX()];
+    
+    objPos tempPos;
+    object->getPlayerPos(tempPos); //get player postion 
+
+    int x,y;
+
+    for (y=0; y<myGM->getBoardSizeY(); y++) {
+        for (x=0; x<myGM->getBoardSizeX();x++) {
+            if (y == 0 || x == 0 || x== myGM->getBoardSizeX()-1 || y== myGM->getBoardSizeY()-1) {
+                matrix[y][x]='#';
+            }
+
+            else if (x == tempPos.x || y == tempPos.y) {
+                matrix[y][x]= tempPos.symbol;
+            }
+
+            else {
+                matrix[y][x] = ' ';
+            }
+        }
+    }
+
+    for (int y =0; y<myGM->getBoardSizeY(); y++){
+
+        for (int x =0; x <myGM->getBoardSizeX(); x++){
+            MacUILib_printf("%c", matrix[y][x]);
+        }
+        MacUILib_printf("\n");
+
+    }
+    
+        
+    
+    MacUILib_printf("The score is %d and loseFlag is set to %d\n", myGM->getScore(), myGM->getLoseFlagStatus());
+}
+
+
+
+/*
     int row, col;
 
         for(row=0; row <= 8; row++){
@@ -109,8 +158,10 @@ void DrawScreen(void)
 
         MacUILib_printf("\n");
     }
+    }
+    */
 
-}
+
 
 void LoopDelay(void)
 {
@@ -123,4 +174,7 @@ void CleanUp(void)
     MacUILib_clearScreen();    
   
     MacUILib_uninit();
+
+    delete myGM;
+    delete object;
 }
