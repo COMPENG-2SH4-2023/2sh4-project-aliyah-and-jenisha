@@ -63,13 +63,12 @@ void Initialize(void)
 void GetInput(void)
 {
 
-    if(MacUILib_hasChar() !=0){
-        char input = MacUILib_getChar();
+   // if(MacUILib_hasChar() !=0){
+       // char input = MacUILib_getChar();
 
         myGM->setInput(input); //using setter method to collect input 
         // speedInput = MacUILib_getChar();
     
-    } 
    
 }
 
@@ -96,7 +95,7 @@ void DrawScreen(void)
                 matrix[y][x]='#';
             }
 
-            else if (x == tempPos.x || y == tempPos.y) {
+            else if (x == tempPos.x && y == tempPos.y) {
                 matrix[y][x]= tempPos.symbol;
             }
 
