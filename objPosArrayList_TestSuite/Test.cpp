@@ -353,6 +353,71 @@ void testRemoveTail_5Element()
 	// The destructor will be called automatically for stack-allocated objects
 }
 
+void testInsertTail_6Element()
+{
+	objPos currentPos;
+	objPos bodyPos{4, 6, 'f'};  
+	objPos tailPos{2, 2, 'l'};
+
+	// Insert 4 body elements, then 1 unique head element
+	objPosArrayList thisList;
+	thisList.insertTail(bodyPos);
+	thisList.insertTail(bodyPos);
+	thisList.insertTail(bodyPos);
+	thisList.insertTail(bodyPos);
+	thisList.insertTail(tailPos);
+
+	int expectedSize = 5;
+	int actualSize = thisList.getSize();
+		
+	// Confirm the list size is now 5
+	ASSERT_EQUAL(expectedSize, actualSize);
+
+	bool expectedCheck = true;
+	bool actualCheck;
+
+	// Then, check the head element is the common body element
+	thisList.getHeadElement(currentPos);
+	actualCheck = bodyPos.isPosEqual(&currentPos);
+
+	ASSERT_EQUAL(expectedCheck, actualCheck);
+
+	// Next, chech the body elements at index 1, 2, and 3.
+	for(int i = 1; i < actualSize - 1; i++)
+	{
+		thisList.getElement(currentPos, i);
+		actualCheck = bodyPos.isPosEqual(&currentPos);
+
+		ASSERT_EQUAL(expectedCheck, actualCheck);	
+	}
+
+	// Finally, check the tail element is the body element
+	thisList.getTailElement(currentPos);
+	actualCheck = tailPos.isPosEqual(&currentPos);
+
+	ASSERT_EQUAL(expectedCheck, actualCheck);
+
+	// The destructor will be called automatically for stack-allocated objects
+}
+
+void testRemoveHead_2Element()
+{
+	objPos currentPos;
+	objPos samplePos{1, 4, 'l'};  
+
+	// Insert 1 sample element
+	objPosArrayList thisList;
+	thisList.insertHead(samplePos);
+
+	thisList.removeHead();
+
+	int expectedSize = 0;
+	int actualSize = thisList.getSize();
+		
+	// The destructor will be called automatically for stack-allocated objects
+}
+
+
 
 
 
@@ -364,7 +429,9 @@ bool runAllTests(int argc, char const *argv[]) {
 	s.push_back(CUTE(testInsertHead_5Element));
 	s.push_back(CUTE(testInsertTail_1Element));
 	s.push_back(CUTE(testInsertTail_5Element));
+	s.push_back(CUTE(testInsertTail_6Element));
 	s.push_back(CUTE(testRemoveHead_1Element));
+	s.push_back(CUTE(testRemoveHead_2Element));
 	s.push_back(CUTE(testRemoveHead_5Element));
 	s.push_back(CUTE(testRemoveTail_1Element));
 	s.push_back(CUTE(testRemoveTail_5Element));
