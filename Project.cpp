@@ -3,6 +3,7 @@
 #include "objPos.h"
 #include "GameMechs.h"
 #include "Player.h"
+#include "Food.h"
 
 
 
@@ -16,6 +17,7 @@ char input;
 
 GameMechs* myGM;
 Player* object;
+Food* myFood; 
 objPos myPos;
 
 void Initialize(void);
@@ -56,6 +58,11 @@ void Initialize(void)
 
     myGM = new GameMechs(26, 13); //make board size 26x13
     object = new Player(myGM);
+    myFood = new Food();
+
+    myFood->generateFood(myPos);
+
+    
 
     //exitFlag = false;
 }
@@ -89,6 +96,9 @@ void DrawScreen(void)
     objPos tempPos;
     object->getPlayerPos(tempPos); //get player postion 
 
+    objPos foodPos;
+    myFood->getFoodPos(foodPos);
+
     int x,y;
 
     for (y=0; y<myGM->getBoardSizeY(); y++) {
@@ -105,11 +115,16 @@ void DrawScreen(void)
                // myPos.x = x;
                // myPos.y = y;           
                 }
+            
+            else if (x == foodPos.x && y == foodPos.y) {
+                matrix[y][x] = foodPos.symbol;
+
+            }
 
             else {
                 matrix[y][x] = ' ';
             }
-        }
+    }
     }
 
     for (int y =0; y<myGM->getBoardSizeY(); y++){
