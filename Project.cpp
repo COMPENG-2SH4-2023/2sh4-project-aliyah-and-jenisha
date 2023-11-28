@@ -73,7 +73,7 @@ void GetInput(void)
         input = MacUILib_getChar();
         myGM->setInput(input); //using setter method to collect input 
         
-        if (input == 'd' || input == 'D') { //debugging 
+        if (input == 'g' || input == 'G') { //debugging 
             // Clear away the current food
             // Generate a new random position for the food
             myFood->generateFood(myPos);
@@ -87,6 +87,11 @@ void RunLogic(void)
     char inputChar = myGM->getInput();
     object->updatePlayerDir();
     object->movePlayer();
+
+     if (inputChar == 's' || inputChar == 'S') {
+        myGM->incrementScore();
+        MacUILib_printf("Score incremented! New score: %d\n", myGM->getScore());
+    }
        
 }
 
