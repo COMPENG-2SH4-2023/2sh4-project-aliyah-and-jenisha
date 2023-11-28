@@ -50,7 +50,7 @@ void Player::updatePlayerDir()
     { 
         switch(input){
             case 27:  // the esc key
-                //exitFlag = 1;
+                thisGMRef->setExitTrue();//exitFlag = 1;
                 break;
 
             case 'w':
@@ -147,6 +147,17 @@ void Player::movePlayer()
         case LEFT:
             playerPos.x--;
             break;
+    }
+    if(playerPos.x > 26){
+        playerPos.x = 1; 
+ 
+    } else if(playerPos.x < 1){
+        playerPos.x = 26;
+
+    } else if(playerPos.y < 1){
+        playerPos.y = 13;
+    } else if(playerPos.y > 13){
+        playerPos.y = 1;
     }
 }
 
