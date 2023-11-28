@@ -69,14 +69,17 @@ void Initialize(void)
 
 void GetInput(void)
 {
-
-   // if(MacUILib_hasChar() !=0){
-       // char input = MacUILib_getChar();
-
+    if (MacUILib_hasChar() != 0) {
+        input = MacUILib_getChar();
         myGM->setInput(input); //using setter method to collect input 
+        
+        if (input == 'd' || input == 'D') { //debugging 
+            // Clear away the current food
+            // Generate a new random position for the food
+            myFood->generateFood(myPos);
+        }
+     }
         // speedInput = MacUILib_getChar();
-    
-   
 }
 
 void RunLogic(void)
