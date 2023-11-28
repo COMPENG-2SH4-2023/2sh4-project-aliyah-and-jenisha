@@ -148,15 +148,15 @@ void Player::movePlayer()
             playerPos.x--;
             break;
     }
-    if(playerPos.x > 26){
+    if(playerPos.x > 25){
         playerPos.x = 1; 
  
     } else if(playerPos.x < 1){
-        playerPos.x = 26;
+        playerPos.x = 25;
 
     } else if(playerPos.y < 1){
-        playerPos.y = 13;
-    } else if(playerPos.y > 13){
+        playerPos.y = 12;
+    } else if(playerPos.y > 12){
         playerPos.y = 1;
     }
 }
