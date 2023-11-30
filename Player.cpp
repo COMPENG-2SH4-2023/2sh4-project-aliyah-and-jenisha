@@ -49,7 +49,34 @@ void Player::updatePlayerDir()
     if(input != 0)  // if not null character
     { 
         switch(input){
-            case 27:  // the esc key
+            case 'w':
+                if (myDir != DOWN) {
+                    myDir = UP;
+                }
+                break;
+            
+            case 'a':
+                if (myDir != RIGHT) {
+                    myDir = LEFT;
+                }
+                break;
+
+             case 's':
+                if (myDir != UP) {
+                    myDir = DOWN;
+                }
+                break;
+            
+            case 'd':
+                if (myDir != LEFT) {
+                    myDir = RIGHT;
+                }
+                break;
+            
+            default:
+                break;
+        }
+            /*case 27:  // the esc key
                 thisGMRef->setExitTrue();//exitFlag = 1;
                 break;
 
@@ -122,13 +149,10 @@ void Player::updatePlayerDir()
 
             default:
                 break;
+                */
         }
     }
 
-
-
-         
-}
 
 void Player::movePlayer()
 {
