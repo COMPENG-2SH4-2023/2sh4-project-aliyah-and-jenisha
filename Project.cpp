@@ -4,7 +4,7 @@
 #include "GameMechs.h"
 #include "Player.h"
 #include "Food.h"
-
+#include "objPosArrayList.h"
 
 
 using namespace std;
@@ -54,13 +54,19 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    myPos.setObjPos(2,3,'*');
+    // objpos.setObjPos(2,3,'*');
 
     myGM = new GameMechs(26, 13); //make board size 26x13
     object = new Player(myGM);
     myFood = new Food();
 
     myFood->generateFood(myPos);
+
+
+
+    // testing , makeshift set up
+    objPos tempPos{-1,-1,'o'};
+    myGM->generateFood(tempPos);
 
     
 
@@ -101,16 +107,34 @@ void DrawScreen(void)
 
     char matrix[myGM->getBoardSizeY()][myGM->getBoardSizeX()];
     
-    objPos tempPos;
-    object->getPlayerPos(tempPos); //get player postion 
+    // objPos tempPos;
+    // object->getPlayerPos(tempPos); //get player postion 
+
+     objPosArrayList* playerBody = object->getPlayerPos(); // entire player pos list
 
     objPos foodPos;
     myFood->getFoodPos(foodPos);
+    bool drawn;
 
     int x,y;
 
     for (y=0; y<myGM->getBoardSizeY(); y++) {
+        drawn = false;
+        
         for (x=0; x<myGM->getBoardSizeX();x++) {
+
+            for(int k = 0; k < playerBody->getSize(); k++){
+                playerBody->getElement(tempBody, y);
+
+                if(tempBody.x == x && tempBody.y == y){
+                    MacUILib_printf("%c", tempBody.symbol);
+                    drawn = true;
+                }
+
+            }
+
+            if(drawn) continue; // if player was drawn don't draw everything below
+
             if (y == 0 || x == 0 || x== myGM->getBoardSizeX()-1 || y== myGM->getBoardSizeY()-1) {
                 matrix[y][x]='#';
             }

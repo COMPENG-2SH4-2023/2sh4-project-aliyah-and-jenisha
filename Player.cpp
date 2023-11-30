@@ -1,6 +1,6 @@
 #include "Player.h"
 
-objPos playerPos;
+objPosArrayList* playerPosList;
 
 
 Player::Player(GameMechs* thisGMRef)
@@ -8,9 +8,11 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
-    playerPos.setObjPos(mainGameMechsRef->getBoardSizeX() /2, mainGameMechsRef->getBoardSizeY() /2, '@');
+    objPos tempPos;
+    tempPos.setObjPos(mainGameMechsRef->getBoardSizeX() /2, mainGameMechsRef->getBoardSizeY() /2, '*'); // easier way to do this
 
-    
+    playerPosList = new objPosArrayList();
+    playerPosList->insertHead(tempPos);
 
     // more actions to be included
 }
@@ -22,12 +24,9 @@ Player::~Player()
     delete(mainGameMechsRef);
 }
 
-void Player::getPlayerPos(objPos &returnPos)
+ objPosArrayList* Player::getPlayerPos()
 {
-     returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
-    // return the reference to the playerPos arrray list
-
-    return playerPos.setObjPos(playerPos.x,playerPos.y,playerPos.symbol);
+     return playerPosList;
 
     
 
@@ -134,30 +133,37 @@ void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
 
+    objPos currHead; 
+
+
     switch(myDir){
         case UP:
-            playerPos.y--;
+            currHead.y--;
             break;
         case DOWN:
-            playerPos.y++;
+            currHead.y++;
             break;
         case RIGHT:
-            playerPos.x++;
+            currHead.x++;
             break;
         case LEFT:
-            playerPos.x--;
+            currHead.x--;
             break;
     }
-    if(playerPos.x > 25){
-        playerPos.x = 1; 
+    if(currHead.x > 25){
+        currHead.x = 1; 
  
-    } else if(playerPos.x < 1){
-        playerPos.x = 25;
+    } else if(currHead.x < 1){
+        currHead.x = 25;
 
-    } else if(playerPos.y < 1){
-        playerPos.y = 12;
-    } else if(playerPos.y > 12){
-        playerPos.y = 1;
+    } else if(currHead.y < 1){
+        currHead.y = 12;
+    } else if(currHead.y > 12){
+        currHead.y = 1;
     }
+
+    playerPosList->insertHead(currHead);
+    playerPosList->removeTail();
+
 }
 
