@@ -193,10 +193,18 @@ void Player::movePlayer()
         currHead.y = 2;
     }
 
-    playerPosList->insertHead(currHead);
 
-    
-    playerPosList->removeTail();
+    if(checkSelfCollision == true){
+        setExitTrue();
+        loseFlag = 1;
+
+    } else{
+
+         playerPosList->insertHead(currHead);
+         playerPosList->removeTail();
+
+    }
+   
 
 }
 
