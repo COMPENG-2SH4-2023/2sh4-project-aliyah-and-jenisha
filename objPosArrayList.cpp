@@ -93,6 +93,10 @@ void objPosArrayList::getElement(objPos &returnPos, int index){
     returnPos = aList[index];
 }
 
+int objPosArrayList::getSize(){
+    return sizeList;
+}
+
 
 
 
