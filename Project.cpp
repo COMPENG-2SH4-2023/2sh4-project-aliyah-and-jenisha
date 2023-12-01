@@ -4,7 +4,7 @@
 #include "GameMechs.h"
 #include "Player.h"
 #include "Food.h"
-
+#include "objPosArrayList.h"
 
 
 using namespace std;
@@ -54,13 +54,14 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    myPos.setObjPos(2,3,'*');
+    // objpos.setObjPos(2,3,'*');
 
     myGM = new GameMechs(26, 13); //make board size 26x13
     object = new Player(myGM);
     myFood = new Food();
 
     myFood->generateFood(myPos);
+
 
     
 
@@ -97,32 +98,46 @@ void RunLogic(void)
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen(); 
+    objPosArrayList* playerBody = object->getPlayerPos(); // entire player pos list
+   
 
     char matrix[myGM->getBoardSizeY()][myGM->getBoardSizeX()];
     
     objPos tempPos;
-    object->getPlayerPos(tempPos); //get player postion 
+    object->getPlayerPos(); //get player postion 
+
+     objPos tempBody;
 
     objPos foodPos;
     myFood->getFoodPos(foodPos);
+    bool drawn;
 
     int x,y;
 
     for (y=0; y<myGM->getBoardSizeY(); y++) {
+        
         for (x=0; x<myGM->getBoardSizeX();x++) {
+             drawn = false;
+
+
+            for(int k = 0; k < playerBody->getSize(); k++){
+                playerBody->getElement(tempBody, k);
+
+                if(tempBody.x == x && tempBody.y == y){
+                    
+                    matrix[y][x] = tempBody.symbol;
+                    drawn = true;
+                    break;
+                }
+                
+            }
+
+            if(drawn) continue; // if player was drawn don't draw everything below
+
             if (y == 0 || x == 0 || x== myGM->getBoardSizeX()-1 || y== myGM->getBoardSizeY()-1) {
                 matrix[y][x]='#';
             }
-
-            else if (x == tempPos.x && y == tempPos.y) {
-                matrix[y][x]=tempPos.symbol;
-
-                //coordinates[y][x] = myPos.symbol;
-
-               // myPos.x = x;
-               // myPos.y = y;           
-                }
             
             else if (x == foodPos.x && y == foodPos.y) {
                 matrix[y][x] = foodPos.symbol;
@@ -147,6 +162,13 @@ void DrawScreen(void)
         
     
     MacUILib_printf("The score is %d and loseFlag is set to %d\n", myGM->getScore(), myGM->getLoseFlagStatus());
+
+    for(int f = 0; f < playerBody->getSize(); f++){
+        playerBody->getElement(tempBody,f);
+
+        MacUILib_printf("<%d, %d> ", tempBody.x, tempBody.y);
+
+    }
 }
 
 
