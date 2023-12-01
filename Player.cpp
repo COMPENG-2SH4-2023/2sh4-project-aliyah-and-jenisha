@@ -200,15 +200,20 @@ void Player::movePlayer()
 
 }
 
-bool Player::checkSelfCollision(){
+bool Player::checkSelfCollision(objPos head){
 
-    objPos currHead; 
-    playerPosList->getHeadElement(currHead);
+    Player* object;
+
+    playerPosList->getHeadElement(head);
+    objPosArrayList* playerBody = object->getPlayerPos(); // entire player pos list
+    objPos tempBody;
+
+
 
      for(int k = 0; k < playerBody->getSize(); k++){
         playerBody->getElement(tempBody, k);
 
-        if(tempBody.x == currHead.x && tempBody.y == currHead.y){
+        if(tempBody.x == head.x && tempBody.y == head.y){
             return true;
         }
      }
