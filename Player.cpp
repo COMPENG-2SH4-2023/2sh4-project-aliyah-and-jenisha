@@ -157,6 +157,8 @@ void Player::updatePlayerDir()
     }
 
 
+
+
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
@@ -195,6 +197,24 @@ void Player::movePlayer()
 
     
     playerPosList->removeTail();
+
+}
+
+bool Player::checkSelfCollision(){
+
+    objPos currHead; 
+    playerPosList->getHeadElement(currHead);
+
+     for(int k = 0; k < playerBody->getSize(); k++){
+        playerBody->getElement(tempBody, k);
+
+        if(tempBody.x == currHead.x && tempBody.y == currHead.y){
+            return true;
+        }
+     }
+
+     return false;
+
 
 }
 
