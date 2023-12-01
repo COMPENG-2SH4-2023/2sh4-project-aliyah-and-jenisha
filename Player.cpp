@@ -15,6 +15,10 @@ Player::Player(GameMechs* thisGMRef)
     playerPosList->insertHead(tempPos);
     playerPosList->insertHead(tempPos);
     playerPosList->insertHead(tempPos);
+    playerPosList->insertHead(tempPos);
+    playerPosList->insertHead(tempPos);
+
+
 
     // more actions to be included
 }
@@ -165,6 +169,8 @@ void Player::movePlayer()
 
     objPos currHead; 
     playerPosList->getHeadElement(currHead);
+    Player* object;
+
 
 
     switch(myDir){
@@ -194,10 +200,9 @@ void Player::movePlayer()
     }
 
 
-    if(checkSelfCollision == true){
-        setExitTrue();
-        loseFlag = 1;
+    if(object->checkSelfCollision(currHead) == true){
 
+        currHead.y = 5;
     } else{
 
          playerPosList->insertHead(currHead);
