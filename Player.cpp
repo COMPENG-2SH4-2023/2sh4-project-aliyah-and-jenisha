@@ -9,7 +9,7 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     objPos tempPos;
-     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX() /2, mainGameMechsRef->getBoardSizeY() /2, '@'); // easier way to do this
+     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX() /2, mainGameMechsRef->getBoardSizeY() /2, '*'); // easier way to do this
 
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(tempPos);
@@ -179,16 +179,16 @@ void Player::movePlayer()
             currHead.x--;
             break;
     }
-    if(currHead.x > 25){
-        currHead.x = 1; 
- 
-    } else if(currHead.x < 1){
-        currHead.x = 25;
+    if(currHead.x > 24){
+        currHead.x = 2; 
 
-    } else if(currHead.y < 1){
-        currHead.y = 12;
-    } else if(currHead.y > 12){
-        currHead.y = 1;
+    } else if(currHead.x < 2){
+        currHead.x = 24;
+
+    } else if(currHead.y < 2){
+        currHead.y = 10;
+    } else if(currHead.y > 11){
+        currHead.y = 2;
     }
 
     playerPosList->insertHead(currHead);
