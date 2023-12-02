@@ -22,11 +22,11 @@ class Player
         objPosArrayList* getPlayerPos(); // Upgrade this in iteration 3.
         void updatePlayerDir();
         void movePlayer();
-        bool checkSelfCollision(objPos head);
+        bool checkSelfCollision(objPos &head);
 
 
     private:
-        objPosArrayList* playerPosList;   // Upgrade this in iteration 3.       
+        objPosArrayList *playerPosList;   // Upgrade this in iteration 3.       
         enum Dir myDir;
 
         // Need a reference to the Main Game Mechanisms

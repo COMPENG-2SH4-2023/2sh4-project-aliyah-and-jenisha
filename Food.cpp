@@ -4,6 +4,7 @@
 //#include <cstdlib> //provides srand() and rand()
 //#include <time.h> //provides time
 
+
 Food::Food()
 {
     foodPos.setObjPos(-1, -1, 'o'); //intalize foodpos outside of the game board

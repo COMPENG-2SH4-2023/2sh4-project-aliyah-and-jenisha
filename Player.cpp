@@ -1,6 +1,9 @@
 #include "Player.h"
+#include <iostream>
 
-objPosArrayList* playerPosList;
+
+using namespace std; // so i can print for debugging
+
 
 
 Player::Player(GameMechs* thisGMRef)
@@ -13,10 +16,7 @@ Player::Player(GameMechs* thisGMRef)
 
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
+
 
 
 
@@ -30,20 +30,20 @@ Player::~Player()
     delete(mainGameMechsRef);
 
     delete playerPosList;
+
+    
 }
 
  objPosArrayList* Player::getPlayerPos()
 {
      return playerPosList;
 
-    
-
-
 
 }
 
 void Player::updatePlayerDir()
 {
+
     // PPA3 input processing logic 
 
     GameMechs* thisGMRef;
@@ -51,6 +51,7 @@ void Player::updatePlayerDir()
     char input, previousDirection;
 
     input = thisGMRef->getInput();
+
 
 
     if(input != 0)  // if not null character
@@ -65,12 +66,14 @@ void Player::updatePlayerDir()
             case 'a':
                 if (myDir != RIGHT) {
                     myDir = LEFT;
+
                 }
                 break;
 
              case 's':
                 if (myDir != UP) {
                     myDir = DOWN;
+
                 }
                 break;
             
@@ -83,80 +86,7 @@ void Player::updatePlayerDir()
             default:
                 break;
         }
-            /*case 27:  // the esc key
-                thisGMRef->setExitTrue();//exitFlag = 1;
-                break;
-
-            case 'w':
-            case 'W':
-                if(previousDirection != 's'){
-
-                    myDir = UP;
-                    previousDirection = 'w';
-
-                    break;
-
-                } else{
-                   myDir = DOWN;
-                   previousDirection = 's';
-
-                    break;
-                }
-                
-                
-
-            case 's':
-            case 'S':
-
-                if(previousDirection != 'w'){
-
-                    myDir = DOWN;
-                    previousDirection = 's';
-
-                    break;
-                } else{
-
-                    myDir = UP;
-                    previousDirection = 'w';
-
-                    break;
-                }
-                
-                
-                break;
-
-            case 'a': 
-            case 'A':
-
-                if(previousDirection != 'd'){
-
-                    myDir = LEFT;
-                    previousDirection = 'a';
-
-                } else{
-                    myDir = RIGHT;
-                    previousDirection = 'd';
-                }
-                
-                break;
-            
-            case 'd':
-            case 'D':
-
-                if(previousDirection != 'a'){
-                    myDir = RIGHT;
-                    previousDirection = 'd';
-
-                } else{
-                    myDir = LEFT;
-                    previousDirection = 'd';
-                }
-                
-                break;
-
-            default:
-                break;
-                */
+           
         }
     }
 
@@ -169,7 +99,10 @@ void Player::movePlayer()
 
     objPos currHead; 
     playerPosList->getHeadElement(currHead);
-    Player* object;
+    Player* object; //get player postion
+
+    object->getPlayerPos();
+
 
 
 
@@ -187,6 +120,8 @@ void Player::movePlayer()
             currHead.x--;
             break;
     }
+
+
     if(currHead.x > 24){
         currHead.x = 2; 
 
@@ -200,36 +135,43 @@ void Player::movePlayer()
     }
 
 
-    if(object->checkSelfCollision(currHead) == true){
+    if(checkSelfCollision(currHead)==true){
 
-        currHead.y = 5;
+        mainGameMechsRef->setLoseFlag();
+        mainGameMechsRef->setExitTrue();
+
     } else{
 
          playerPosList->insertHead(currHead);
          playerPosList->removeTail();
 
     }
+
+   
    
 
 }
 
-bool Player::checkSelfCollision(objPos head){
+bool Player::checkSelfCollision(objPos &head){
 
-    Player* object;
-
-    playerPosList->getHeadElement(head);
-    objPosArrayList* playerBody = object->getPlayerPos(); // entire player pos list
-    objPos tempBody;
+  
+    objPos tempBodyPart;
 
 
 
-     for(int k = 0; k < playerBody->getSize(); k++){
-        playerBody->getElement(tempBody, k);
 
-        if(tempBody.x == head.x && tempBody.y == head.y){
+    // cout << "the body " << playerPosList->getSize() << endl;
+    // cout << "end" << endl;
+
+    
+     for(int k = 1; k < playerPosList->getSize(); k++){
+        playerPosList->getElement(tempBodyPart, k);
+
+        
+        if(head.isPosEqual(&tempBodyPart)){
             return true;
         }
-     }
+    }
 
      return false;
 
