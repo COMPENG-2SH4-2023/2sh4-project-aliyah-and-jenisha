@@ -3,23 +3,35 @@
 
 
 
+
+
+
 #include "GameMechs.h"
 #include "objPos.h"
 #include "objPosArrayList.h"
 
+
 class Food
 {
-    private:
-        objPos foodPos;
-    
-    public:
-        Food();
-        ~Food();
+   private:
+       objPos foodPos;
+  
+   public:
+       Food();
+       ~Food();
 
-        void generateFood(objPos blockOff);
-        void getFoodPos(objPos &returnPos);
+
+       void generateFood(objPos blockOff);
+       void getFoodPos(objPos &returnPos);
+
+
 
 
 };
 
+
 #endif
+
+
+
+
