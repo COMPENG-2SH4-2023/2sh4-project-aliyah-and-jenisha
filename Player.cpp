@@ -121,36 +121,43 @@ void Player::movePlayer()
         currHead.x = 24;
 
     } else if(currHead.y < 2){
-        currHead.y = 10;
+        currHead.y = 11;
     } else if(currHead.y > 11){
         currHead.y = 2;
     }
 
-   playerPosList->insertHead(currHead);
+//    playerPosList->insertHead(currHead);
 
-    // Check if the head overlaps with the food
-    if (checkFoodConsumption())
-    {
-        // If yes, increase the player length without removing the tail
-        increasePlayerLength();
-    if(checkSelfCollision(currHead)==true){
+
+      if(checkSelfCollision(currHead)==true){
 
         mainGameMechsRef->setLoseFlag();
         mainGameMechsRef->setExitTrue();
 
     } else{
 
-         playerPosList->insertHead(currHead);
-         playerPosList->removeTail();
+        //  playerPosList->insertHead(currHead);
+        //  playerPosList->removeTail();
 
-        // Generate new food
-        foodRef->generateFood(currHead);
-    }
-    else
-    {
-        // If no, regular insert + remove to complete the snake movement
+       
+
+        if (checkFoodConsumption())
+        {
+             // If yes, increase the player length without removing the tail
+            increasePlayerLength();
+             // Generate new food
+            foodRef->generateFood(currHead);
+        }
+
+        playerPosList->insertHead(currHead);
         playerPosList->removeTail();
+ 
+        
     }
+
+    // Check if the head overlaps with the food
+   
+
 }
 
 
@@ -162,9 +169,7 @@ bool Player::checkFoodConsumption()
     objPos foodPos;
     foodRef->getFoodPos(foodPos);
 
-   
-   
-
+    return (currHead.x == foodPos.x && currHead.y == foodPos.y);
 }
 
 
@@ -178,11 +183,12 @@ void Player::increasePlayerLength()
     playerPosList->insertHead(currHead);
 }
 
-bool Player::checkSelfCollision(){
 
-    objPos currHead; 
-    playerPosList->getHeadElement(currHead);
 
+bool Player::checkSelfCollision(objPos &head){
+
+  
+    objPos tempBodyPart;
 
     // cout << "the body " << playerPosList->getSize() << endl;
     // cout << "end" << endl;

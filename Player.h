@@ -25,7 +25,7 @@ class Player
         void movePlayer();
         bool checkFoodConsumption();  // New function
         void increasePlayerLength();  // New function
-        bool checkSelfCollision(objPos head);
+        bool checkSelfCollision(objPos &head);
 
 
     private:
