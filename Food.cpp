@@ -10,12 +10,9 @@
 //#include <time.h> //provides time
 
 
-<<<<<<< HEAD
 using namespace std;
 
 
-=======
->>>>>>> 1c77f9f (get player collision working)
 Food::Food()
 {
    foodPos.setObjPos(-1, -1, 'o'); //intalize foodpos outside of the game board
