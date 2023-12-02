@@ -1,6 +1,9 @@
 #include "Player.h"
+#include <iostream>
 
-objPosArrayList* playerPosList;
+
+using namespace std; // so i can print for debugging
+
 
 
 Player::Player(GameMechs* thisGMRef, Food* thisFoodRef) : mainGameMechsRef(thisGMRef), foodRef(thisFoodRef)
@@ -13,8 +16,6 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef) : mainGameMechsRef(thisG
 
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
 
     // more actions to be included
 }
@@ -26,20 +27,20 @@ Player::~Player()
     delete(mainGameMechsRef);
 
     delete playerPosList;
+
+    
 }
 
  objPosArrayList* Player::getPlayerPos()
 {
      return playerPosList;
 
-    
-
-
 
 }
 
 void Player::updatePlayerDir()
 {
+
     // PPA3 input processing logic 
 
     GameMechs* thisGMRef;
@@ -47,6 +48,7 @@ void Player::updatePlayerDir()
     char input, previousDirection;
 
     input = thisGMRef->getInput();
+
 
 
     if(input != 0)  // if not null character
@@ -61,12 +63,14 @@ void Player::updatePlayerDir()
             case 'a':
                 if (myDir != RIGHT) {
                     myDir = LEFT;
+
                 }
                 break;
 
              case 's':
                 if (myDir != UP) {
                     myDir = DOWN;
+
                 }
                 break;
             
@@ -79,6 +83,7 @@ void Player::updatePlayerDir()
             default:
                 break;
         }
+           
         }
     }
 
@@ -107,6 +112,8 @@ void Player::movePlayer()
             currHead.x--;
             break;
     }
+
+
     if(currHead.x > 24){
         currHead.x = 2; 
 
@@ -126,6 +133,15 @@ void Player::movePlayer()
     {
         // If yes, increase the player length without removing the tail
         increasePlayerLength();
+    if(checkSelfCollision(currHead)==true){
+
+        mainGameMechsRef->setLoseFlag();
+        mainGameMechsRef->setExitTrue();
+
+    } else{
+
+         playerPosList->insertHead(currHead);
+         playerPosList->removeTail();
 
         // Generate new food
         foodRef->generateFood(currHead);
@@ -146,8 +162,11 @@ bool Player::checkFoodConsumption()
     objPos foodPos;
     foodRef->getFoodPos(foodPos);
 
-    return (currHead.x == foodPos.x && currHead.y == foodPos.y);
+   
+   
+
 }
+
 
 void Player::increasePlayerLength()
 {
@@ -164,13 +183,19 @@ bool Player::checkSelfCollision(){
     objPos currHead; 
     playerPosList->getHeadElement(currHead);
 
-     for(int k = 0; k < playerBody->getSize(); k++){
-        playerBody->getElement(tempBody, k);
 
-        if(tempBody.x == currHead.x && tempBody.y == currHead.y){
+    // cout << "the body " << playerPosList->getSize() << endl;
+    // cout << "end" << endl;
+
+    
+     for(int k = 1; k < playerPosList->getSize(); k++){
+        playerPosList->getElement(tempBodyPart, k);
+
+        
+        if(head.isPosEqual(&tempBodyPart)){
             return true;
         }
-     }
+    }
 
      return false;
 
