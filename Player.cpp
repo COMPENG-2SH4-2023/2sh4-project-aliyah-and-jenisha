@@ -3,9 +3,9 @@
 objPosArrayList* playerPosList;
 
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef, Food* thisFoodRef) : mainGameMechsRef(thisGMRef), foodRef(thisFoodRef)
 {
-    mainGameMechsRef = thisGMRef;
+    //mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
     objPos tempPos;
@@ -79,80 +79,6 @@ void Player::updatePlayerDir()
             default:
                 break;
         }
-            /*case 27:  // the esc key
-                thisGMRef->setExitTrue();//exitFlag = 1;
-                break;
-
-            case 'w':
-            case 'W':
-                if(previousDirection != 's'){
-
-                    myDir = UP;
-                    previousDirection = 'w';
-
-                    break;
-
-                } else{
-                   myDir = DOWN;
-                   previousDirection = 's';
-
-                    break;
-                }
-                
-                
-
-            case 's':
-            case 'S':
-
-                if(previousDirection != 'w'){
-
-                    myDir = DOWN;
-                    previousDirection = 's';
-
-                    break;
-                } else{
-
-                    myDir = UP;
-                    previousDirection = 'w';
-
-                    break;
-                }
-                
-                
-                break;
-
-            case 'a': 
-            case 'A':
-
-                if(previousDirection != 'd'){
-
-                    myDir = LEFT;
-                    previousDirection = 'a';
-
-                } else{
-                    myDir = RIGHT;
-                    previousDirection = 'd';
-                }
-                
-                break;
-            
-            case 'd':
-            case 'D':
-
-                if(previousDirection != 'a'){
-                    myDir = RIGHT;
-                    previousDirection = 'd';
-
-                } else{
-                    myDir = LEFT;
-                    previousDirection = 'd';
-                }
-                
-                break;
-
-            default:
-                break;
-                */
         }
     }
 
@@ -191,10 +117,43 @@ void Player::movePlayer()
         currHead.y = 1;
     }
 
+   playerPosList->insertHead(currHead);
+
+    // Check if the head overlaps with the food
+    if (checkFoodConsumption())
+    {
+        // If yes, increase the player length without removing the tail
+        increasePlayerLength();
+
+        // Generate new food
+        foodRef->generateFood(currHead);
+    }
+    else
+    {
+        // If no, regular insert + remove to complete the snake movement
+        playerPosList->removeTail();
+    }
+}
+
+
+bool Player::checkFoodConsumption()
+{
+    objPos currHead;
+    playerPosList->getHeadElement(currHead);
+
+    objPos foodPos;
+    foodRef->getFoodPos(foodPos);
+
+    return (currHead.x == foodPos.x && currHead.y == foodPos.y);
+}
+
+void Player::increasePlayerLength()
+{
+    // Insert the head, but DO NOT remove the tail
+    // This will cause the list size, hence the snake length, to grow by 1
+    // The function already does this during food consumption, so this is just an example
+    objPos currHead;
+    playerPosList->getHeadElement(currHead);
     playerPosList->insertHead(currHead);
-
-    
-    playerPosList->removeTail();
-
 }
 

@@ -56,11 +56,13 @@ void Initialize(void)
 
     // objpos.setObjPos(2,3,'*');
 
-    myGM = new GameMechs(26, 13); //make board size 26x13
-    object = new Player(myGM);
+    myGM = new GameMechs(26, 13);
     myFood = new Food();
+    object = new Player(myGM, myFood);
+    
+    objPos tempPos;
+    myFood->generateFood(tempPos); 
 
-    myFood->generateFood(myPos);
 
 
     
@@ -170,47 +172,6 @@ void DrawScreen(void)
 
     }
 }
-
-
-
-/*
-    int row, col;
-
-        for(row=0; row <= 8; row++){
-        for(col=0; col <= 18; col++){
-            if(row == 0 || row == 8 || col == 0 || col == 18){
-                coordinates[row][col] = '#';
-
-            } else{
-                coordinates[row][col] = ' ';
-            }
-
-
-        }
-    } 
-
-
-
-    int x, y;
-
-    // arbitrary symbols
-    
-    coordinates[4][6] = 'L';
-    coordinates[3][7] = 'f';
-    coordinates[2][1] = 'a';
-    coordinates[5][4] = 'Q';
-    coordinates[myPos.x][myPos.y] = myPos.symbol;
-
-    for(x=0; x <= 8; x++){
-        
-        for(y=0; y <= 18; y++){
-            MacUILib_printf("%c", coordinates[x][y]);
-        }
-
-        MacUILib_printf("\n");
-    }
-    }
-    */
 
 
 
