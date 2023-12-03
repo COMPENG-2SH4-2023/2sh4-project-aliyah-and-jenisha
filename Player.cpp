@@ -24,7 +24,7 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef) : mainGameMechsRef(thisG
 Player::~Player()
 {
     // delete any heap members here
-    delete(mainGameMechsRef);
+    //delete(mainGameMechsRef);
 
     delete playerPosList;
 }
@@ -34,6 +34,11 @@ Player::~Player()
      return playerPosList;
 
 
+}
+
+int Player::getPlayerScore() const {
+    // Subtract 1 from the list size to map size 1 to score 0
+    return playerPosList->getSize() - 1;
 }
 
 void Player::updatePlayerDir()
@@ -138,7 +143,7 @@ void Player::movePlayer()
              // If yes, increase the player length without removing the tail
             increasePlayerLength();
              // Generate new food
-            foodRef->generateFood(currHead);
+            foodRef->generateFood(playerPosList);
         }
 
         playerPosList->insertHead(currHead);

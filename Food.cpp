@@ -16,20 +16,12 @@ using namespace std;
 Food::Food()
 {
    foodPos.setObjPos(-1, -1, 'o'); //intalize foodpos outside of the game board
-  
-
 
 }
 
-
-
-
 Food::~Food(){}
 
-
-
-
-void Food::generateFood(objPos blockOff)
+void Food::generateFood(objPosArrayList* playerPosList)
 {
    int x, y;
 
@@ -39,14 +31,23 @@ void Food::generateFood(objPos blockOff)
    srand(time(NULL));  
    foodPos.x = (rand() % 18)+1;
    foodPos.y= (rand() %8)+1;
-   } while (foodPos.isPosEqual(&blockOff));
+   } while (checkFoodOnSnake(*playerPosList));
   
 }
 
+bool Food::checkFoodOnSnake(objPosArrayList &playerPosList) {
+    objPos tempPos;
 
-   //rmber in objPos class you have an isPosEqual() method
-  
+    for (int i = 0; i < playerPosList.getSize(); ++i) {
+        playerPosList.getElement(tempPos, i);
 
+        if (tempPos.x == foodPos.x && tempPos.y == foodPos.y) {
+            return true;  // Food is on snake body
+        }
+    }
+
+    return false;  // Food is not on the snake body
+}
 
 void Food::getFoodPos(objPos &returnPos)
 {
