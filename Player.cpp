@@ -16,9 +16,7 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef) : mainGameMechsRef(thisG
 
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-
+ 
     // more actions to be included
 }
 
@@ -125,7 +123,6 @@ void Player::movePlayer()
         currHead.y = 2;
     }
 
-//    playerPosList->insertHead(currHead);
 
 
       if(checkSelfCollision(currHead)==true){
@@ -212,29 +209,5 @@ bool Player::checkSelfCollision(objPos &head){
 
 
 
-bool Player::checkSelfCollision(objPos &head){
 
-  
-    objPos tempBodyPart;
-
-
-
-
-    // cout << "the body " << playerPosList->getSize() << endl;
-    // cout << "end" << endl;
-
-    
-     for(int k = 1; k < playerPosList->getSize(); k++){
-        playerPosList->getElement(tempBodyPart, k);
-
-        
-        if(head.isPosEqual(&tempBodyPart)){
-            return true;
-        }
-    }
-
-     return false;
-
-
-}
 
