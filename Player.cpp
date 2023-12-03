@@ -111,16 +111,16 @@ void Player::movePlayer()
             currHead.x--;
             break;
     }
-    if(currHead.x > 24){
-        currHead.x = 2; 
+    if(currHead.x > mainGameMechsRef->getBoardSizeX()-2){
+        currHead.x = 1; 
 
-    } else if(currHead.x < 2){
-        currHead.x = 24;
+    } else if(currHead.x < 1){
+        currHead.x = mainGameMechsRef->getBoardSizeX()-2;
 
-    } else if(currHead.y < 2){
-        currHead.y = 11;
-    } else if(currHead.y > 11){
-        currHead.y = 2;
+    } else if(currHead.y < 1){
+        currHead.y = mainGameMechsRef->getBoardSizeY()-2;
+    } else if(currHead.y > mainGameMechsRef->getBoardSizeY()-2){
+        currHead.y = 1;
     }
 
 
