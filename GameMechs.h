@@ -48,8 +48,6 @@ class GameMechs
         void incrementScore();//added
 
 
-      
-
 };
 
 #endif

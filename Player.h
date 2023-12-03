@@ -16,6 +16,7 @@ class Player
 
     public:
         enum Dir {UP, DOWN, LEFT, RIGHT, STOP};  // This is the direction state
+        int getPlayerScore() const;
 
         Player(GameMechs* thisGMRef, Food* thisFoodRef);
         ~Player();
