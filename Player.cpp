@@ -1,6 +1,9 @@
 #include "Player.h"
+#include <iostream>
 
-objPosArrayList* playerPosList;
+
+using namespace std; // so i can print for debugging
+
 
 
 Player::Player(GameMechs* thisGMRef, Food* thisFoodRef) : mainGameMechsRef(thisGMRef), foodRef(thisFoodRef)
@@ -13,9 +16,7 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef) : mainGameMechsRef(thisG
 
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-
+ 
     // more actions to be included
 }
 
@@ -31,9 +32,6 @@ Player::~Player()
  objPosArrayList* Player::getPlayerPos()
 {
      return playerPosList;
-
-    
-
 
 
 }
@@ -79,8 +77,11 @@ void Player::updatePlayerDir()
             default:
                 break;
         }
+           
         }
     }
+
+
 
 
 void Player::movePlayer()
@@ -89,6 +90,11 @@ void Player::movePlayer()
 
     objPos currHead; 
     playerPosList->getHeadElement(currHead);
+    Player* object; //get player postion
+
+    object->getPlayerPos();
+
+
 
 
     switch(myDir){
@@ -112,27 +118,42 @@ void Player::movePlayer()
         currHead.x = 24;
 
     } else if(currHead.y < 2){
-        currHead.y = 10;
+        currHead.y = 11;
     } else if(currHead.y > 11){
         currHead.y = 2;
     }
 
-   playerPosList->insertHead(currHead);
+
+
+      if(checkSelfCollision(currHead)==true){
+
+        mainGameMechsRef->setLoseFlag();
+        mainGameMechsRef->setExitTrue();
+
+    } else{
+
+        //  playerPosList->insertHead(currHead);
+        //  playerPosList->removeTail();
+
+       
+
+        if (checkFoodConsumption())
+        {
+             // If yes, increase the player length without removing the tail
+            increasePlayerLength();
+             // Generate new food
+            foodRef->generateFood(currHead);
+        }
+
+        playerPosList->insertHead(currHead);
+        playerPosList->removeTail();
+ 
+        
+    }
 
     // Check if the head overlaps with the food
-    if (checkFoodConsumption())
-    {
-        // If yes, increase the player length without removing the tail
-        increasePlayerLength();
+   
 
-        // Generate new food
-        foodRef->generateFood(currHead);
-    }
-    else
-    {
-        // If no, regular insert + remove to complete the snake movement
-        playerPosList->removeTail();
-    }
 }
 
 
@@ -147,6 +168,7 @@ bool Player::checkFoodConsumption()
     return (currHead.x == foodPos.x && currHead.y == foodPos.y);
 }
 
+
 void Player::increasePlayerLength()
 {
     // Insert the head, but DO NOT remove the tail
@@ -156,4 +178,36 @@ void Player::increasePlayerLength()
     playerPosList->getHeadElement(currHead);
     playerPosList->insertHead(currHead);
 }
+
+
+
+bool Player::checkSelfCollision(objPos &head){
+
+  
+    objPos tempBodyPart;
+
+    // cout << "the body " << playerPosList->getSize() << endl;
+    // cout << "end" << endl;
+
+    
+     for(int k = 1; k < playerPosList->getSize(); k++){
+        playerPosList->getElement(tempBodyPart, k);
+
+        
+        if(head.isPosEqual(&tempBodyPart)){
+            return true;
+        }
+    }
+
+     return false;
+
+
+}
+
+   
+   
+
+
+
+
 
