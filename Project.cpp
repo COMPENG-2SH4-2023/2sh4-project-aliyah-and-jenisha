@@ -38,8 +38,6 @@ int main(void)
     {
         GetInput();
         RunLogic();
-        // object->updatePlayerDir();
-        // object->movePlayer();
         DrawScreen();
         LoopDelay();
     }
@@ -54,7 +52,6 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    // objpos.setObjPos(2,3,'*');
 
     myGM = new GameMechs(26, 13);
     myFood = new Food();

@@ -8,7 +8,7 @@ using namespace std; // so i can print for debugging
 
 Player::Player(GameMechs* thisGMRef, Food* thisFoodRef) : mainGameMechsRef(thisGMRef), foodRef(thisFoodRef)
 {
-    //mainGameMechsRef = thisGMRef;
+
     myDir = STOP;
 
     objPos tempPos;
@@ -95,8 +95,6 @@ void Player::movePlayer()
     object->getPlayerPos();
 
 
-
-
     switch(myDir){
         case UP:
             currHead.y--;
@@ -111,6 +109,8 @@ void Player::movePlayer()
             currHead.x--;
             break;
     }
+
+
     if(currHead.x > mainGameMechsRef->getBoardSizeX()-2){
         currHead.x = 1; 
 
@@ -131,10 +131,6 @@ void Player::movePlayer()
         mainGameMechsRef->setExitTrue();
 
     } else{
-
-        //  playerPosList->insertHead(currHead);
-        //  playerPosList->removeTail();
-
        
 
         if (checkFoodConsumption())
@@ -182,12 +178,8 @@ void Player::increasePlayerLength()
 
 
 bool Player::checkSelfCollision(objPos &head){
-
   
     objPos tempBodyPart;
-
-    // cout << "the body " << playerPosList->getSize() << endl;
-    // cout << "end" << endl;
 
     
      for(int k = 1; k < playerPosList->getSize(); k++){
