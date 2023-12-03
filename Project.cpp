@@ -12,7 +12,6 @@ using namespace std;
 #define DELAY_CONST 100000
 
 bool exitFlag;
-char coordinates[9][19]; 
 char input; 
 
 GameMechs* myGM;
@@ -84,11 +83,7 @@ void RunLogic(void)
     char inputChar = myGM->getInput();
     object->updatePlayerDir();
     object->movePlayer();
-
-     if (inputChar == 's' || inputChar == 'S') {
-        myGM->incrementScore();
-    }
-       
+ 
 }
 
 void DrawScreen(void)
@@ -154,7 +149,7 @@ void DrawScreen(void)
 
     }
     
-    MacUILib_printf("The score is %d and loseFlag is set to %d\n", object->getPlayerScore(), myGM->getLoseFlagStatus());
+    MacUILib_printf("The Score: %d\n", object->getPlayerScore(), myGM->getLoseFlagStatus());
 
 
 }

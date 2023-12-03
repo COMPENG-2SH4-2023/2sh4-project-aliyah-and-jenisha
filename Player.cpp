@@ -113,6 +113,8 @@ void Player::movePlayer()
         case LEFT:
             currHead.x--;
             break;
+        case STOP: 
+            break;
     }
 
 
