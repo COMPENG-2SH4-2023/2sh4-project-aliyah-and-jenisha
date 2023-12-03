@@ -16,6 +16,8 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef) : mainGameMechsRef(thisG
 
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(tempPos);
+    playerPosList->insertHead(tempPos);
+    playerPosList->insertHead(tempPos);
 
     // more actions to be included
 }
@@ -27,8 +29,6 @@ Player::~Player()
     delete(mainGameMechsRef);
 
     delete playerPosList;
-
-    
 }
 
  objPosArrayList* Player::getPlayerPos()
@@ -40,7 +40,6 @@ Player::~Player()
 
 void Player::updatePlayerDir()
 {
-
     // PPA3 input processing logic 
 
     GameMechs* thisGMRef;
@@ -48,7 +47,6 @@ void Player::updatePlayerDir()
     char input, previousDirection;
 
     input = thisGMRef->getInput();
-
 
 
     if(input != 0)  // if not null character
@@ -63,14 +61,12 @@ void Player::updatePlayerDir()
             case 'a':
                 if (myDir != RIGHT) {
                     myDir = LEFT;
-
                 }
                 break;
 
              case 's':
                 if (myDir != UP) {
                     myDir = DOWN;
-
                 }
                 break;
             
@@ -96,6 +92,11 @@ void Player::movePlayer()
 
     objPos currHead; 
     playerPosList->getHeadElement(currHead);
+    Player* object; //get player postion
+
+    object->getPlayerPos();
+
+
 
 
     switch(myDir){
@@ -112,8 +113,6 @@ void Player::movePlayer()
             currHead.x--;
             break;
     }
-
-
     if(currHead.x > 24){
         currHead.x = 2; 
 
@@ -189,6 +188,37 @@ bool Player::checkSelfCollision(objPos &head){
 
   
     objPos tempBodyPart;
+
+    // cout << "the body " << playerPosList->getSize() << endl;
+    // cout << "end" << endl;
+
+    
+     for(int k = 1; k < playerPosList->getSize(); k++){
+        playerPosList->getElement(tempBodyPart, k);
+
+        
+        if(head.isPosEqual(&tempBodyPart)){
+            return true;
+        }
+    }
+
+     return false;
+
+
+}
+
+   
+   
+
+
+
+bool Player::checkSelfCollision(objPos &head){
+
+  
+    objPos tempBodyPart;
+
+
+
 
     // cout << "the body " << playerPosList->getSize() << endl;
     // cout << "end" << endl;
