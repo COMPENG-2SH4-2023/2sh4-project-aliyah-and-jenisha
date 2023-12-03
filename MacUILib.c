@@ -1,4 +1,5 @@
 #include "MacUILib.h"
+#include "Player.h"
 
 print_ptr MacUILib_printf;
 
@@ -39,8 +40,13 @@ print_ptr MacUILib_printf;
 	
 	void MacUILib_uninit(void)
 	{
+		Player* object;
+
+		object->getPlayerPos();
+
 		// No implementation required
-		MacUILib_printf("\nPress Any Key to Shut Down\n");
+
+		MacUILib_printf("\nPress Any Key to Shut Down!\n");
 		getchar();
 	}
 	

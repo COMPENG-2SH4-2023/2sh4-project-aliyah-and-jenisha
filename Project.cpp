@@ -73,13 +73,10 @@ void GetInput(void)
             // Generate a new random position for the food
             Player myPlayer(myGM, myFood);
             myFood->generateFood(myPlayer.getPlayerPos());
-            //Player myPlayer(myGM, myFood);  // Replace this with how you create the Player instance
-            //myFood->generateFood(object->getPlayerPos());  // Use getPlayerPos to get the snake's body positions
-           // objPosArrayList playerPosList;  // Create an instance of objPosArrayList
-           // myFood->generateFood(playerPosList);
+            
         }
      }
-        // speedInput = MacUILib_getChar();
+       
 }
 
 void RunLogic(void)
@@ -90,7 +87,6 @@ void RunLogic(void)
 
      if (inputChar == 's' || inputChar == 'S') {
         myGM->incrementScore();
-        MacUILib_printf("Score incremented! New score: %d\n", myGM->getScore());
     }
        
 }
@@ -160,12 +156,7 @@ void DrawScreen(void)
     
     MacUILib_printf("The score is %d and loseFlag is set to %d\n", object->getPlayerScore(), myGM->getLoseFlagStatus());
 
-    for(int f = 0; f < playerBody->getSize(); f++){
-        playerBody->getElement(tempBody,f);
 
-        MacUILib_printf("<%d, %d> ", tempBody.x, tempBody.y);
-
-    }
 }
 
 
@@ -179,9 +170,19 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();  
+
+     MacUILib_Delay(50000);   
+
+     MacUILib_printf("You scored: %d ", object->getPlayerScore());
+
+    MacUILib_Delay(50000);  
+
   
     MacUILib_uninit();
+
+    
+
 
     delete myGM;
     delete object;

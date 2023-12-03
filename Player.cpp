@@ -134,6 +134,7 @@ void Player::movePlayer()
 
         mainGameMechsRef->setLoseFlag();
         mainGameMechsRef->setExitTrue();
+        
 
     } else{
        
