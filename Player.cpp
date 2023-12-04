@@ -21,11 +21,10 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef) : mainGameMechsRef(thisG
 }
 
 
+
 Player::~Player()
 {
     // delete any heap members here
-    //delete(mainGameMechsRef);
-
     delete playerPosList;
 }
 
@@ -33,13 +32,17 @@ Player::~Player()
 {
      return playerPosList;
 
-
 }
 
-int Player::getPlayerScore() const {
+
+
+int Player::getPlayerScore() const 
+{
     // Subtract 1 from the list size to map size 1 to score 0
     return playerPosList->getSize() - 1;
 }
+
+
 
 void Player::updatePlayerDir()
 {
@@ -83,9 +86,8 @@ void Player::updatePlayerDir()
                 break;
         }
            
-        }
-    }
-
+     }
+}
 
 
 
@@ -116,32 +118,29 @@ void Player::movePlayer()
         case STOP: 
             break;
     }
-
-
-    if(currHead.x > mainGameMechsRef->getBoardSizeX()-2){
+    
+    if(currHead.x > mainGameMechsRef->getBoardSizeX()-2) {
         currHead.x = 1; 
-
+        
     } else if(currHead.x < 1){
         currHead.x = mainGameMechsRef->getBoardSizeX()-2;
 
     } else if(currHead.y < 1){
         currHead.y = mainGameMechsRef->getBoardSizeY()-2;
+
     } else if(currHead.y > mainGameMechsRef->getBoardSizeY()-2){
         currHead.y = 1;
     }
-
-
-
-      if(checkSelfCollision(currHead)==true){
-
+    
+    if(checkSelfCollision(currHead)==true){
+        
         mainGameMechsRef->setLoseFlag();
         mainGameMechsRef->setExitTrue();
         
-
     } else{
        
 
-        if (checkFoodConsumption())
+        if (checkFoodConsumption()) // Check if the head overlaps with the food
         {
              // If yes, increase the player length without removing the tail
             increasePlayerLength();
@@ -152,16 +151,14 @@ void Player::movePlayer()
         playerPosList->insertHead(currHead);
         playerPosList->removeTail();
  
-        
     }
-
-    // Check if the head overlaps with the food
    
-
 }
 
 
-bool Player::checkFoodConsumption()
+
+
+bool Player::checkFoodConsumption() //function to check when current head of player and food position are equal/same spot
 {
     objPos currHead;
     playerPosList->getHeadElement(currHead);
@@ -173,11 +170,11 @@ bool Player::checkFoodConsumption()
 }
 
 
-void Player::increasePlayerLength()
+
+void Player::increasePlayerLength() 
 {
     // Insert the head, but DO NOT remove the tail
     // This will cause the list size, hence the snake length, to grow by 1
-    // The function already does this during food consumption, so this is just an example
     objPos currHead;
     playerPosList->getHeadElement(currHead);
     playerPosList->insertHead(currHead);
@@ -185,8 +182,8 @@ void Player::increasePlayerLength()
 
 
 
-bool Player::checkSelfCollision(objPos &head){
-  
+bool Player::checkSelfCollision(objPos &head)
+{
     objPos tempBodyPart;
 
     
@@ -201,13 +198,4 @@ bool Player::checkSelfCollision(objPos &head){
 
      return false;
 
-
 }
-
-   
-   
-
-
-
-
-

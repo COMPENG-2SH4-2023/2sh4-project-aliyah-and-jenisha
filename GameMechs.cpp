@@ -1,5 +1,8 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
+
+
+
 GameMechs::GameMechs()
 {
     loseFlag = false;
@@ -10,6 +13,8 @@ GameMechs::GameMechs()
     input = 0;
 
 }
+
+
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
@@ -22,14 +27,19 @@ GameMechs::GameMechs(int boardX, int boardY)
 
 }
 
+
+
 // do you need a destructor?
 GameMechs::~GameMechs(){}
+
 
 
 bool GameMechs::getExitFlagStatus()
 {
     return exitFlag;
 }
+
+
 
 char GameMechs::getInput()
 {
@@ -41,11 +51,15 @@ char GameMechs::getInput()
     return input;
 }
 
+
+
 int GameMechs::getBoardSizeX()
 {
     return boardSizeX;
 
 }
+
+
 
 int GameMechs::getBoardSizeY()
 {
@@ -54,21 +68,22 @@ int GameMechs::getBoardSizeY()
 }
 
 
+
 void GameMechs::setExitTrue()
 {
     exitFlag =1;
 
 }
 
+
+
 void GameMechs::setInput(char this_input)
 {
     input = this_input;
 
-    
-
-
-
 }
+
+
 
 void GameMechs::clearInput()
 {
@@ -76,23 +91,30 @@ void GameMechs::clearInput()
 
 }
 
+
+
 int GameMechs::getScore()
 {
     return score;
 }
+
+
 
 void GameMechs::incrementScore() 
 {
     score++;
 }
 
+
+
 bool GameMechs::getLoseFlagStatus()
 {
     return loseFlag;
 }
 
-void GameMechs::setLoseFlag(){
+
+
+void GameMechs::setLoseFlag()
+{
     loseFlag = 1;
 }
-
-

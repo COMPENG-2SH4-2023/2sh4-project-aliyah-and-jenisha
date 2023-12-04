@@ -46,6 +46,7 @@ int main(void)
 }
 
 
+
 void Initialize(void)
 {
     MacUILib_init();
@@ -61,6 +62,8 @@ void Initialize(void)
     myFood->generateFood(playerPosListPtr);
 }
 
+
+
 void GetInput(void)
 {
     if (MacUILib_hasChar() != 0) {
@@ -74,9 +77,11 @@ void GetInput(void)
             myFood->generateFood(myPlayer.getPlayerPos());
             
         }
-     }
+    }
        
 }
+
+
 
 void RunLogic(void)
 {
@@ -85,6 +90,8 @@ void RunLogic(void)
     object->movePlayer();
  
 }
+
+
 
 void DrawScreen(void)
 {
@@ -97,7 +104,7 @@ void DrawScreen(void)
     objPos tempPos;
     object->getPlayerPos(); //get player postion 
 
-     objPos tempBody;
+    objPos tempBody;
 
     objPos foodPos;
     myFood->getFoodPos(foodPos);
@@ -125,6 +132,7 @@ void DrawScreen(void)
 
             if(drawn) continue; // if player was drawn don't draw everything below
 
+            //code to draw the frame
             if (y == 0 || x == 0 || x== myGM->getBoardSizeX()-1 || y== myGM->getBoardSizeY()-1) {
                 matrix[y][x]='#';
             }
@@ -137,7 +145,7 @@ void DrawScreen(void)
             else {
                 matrix[y][x] = ' ';
             }
-    }
+        }
     }
 
     for (int y =0; y<myGM->getBoardSizeY(); y++){
@@ -151,9 +159,7 @@ void DrawScreen(void)
     
     MacUILib_printf("The Score: %d\n", object->getPlayerScore(), myGM->getLoseFlagStatus());
 
-
 }
-
 
 
 
@@ -163,21 +169,18 @@ void LoopDelay(void)
 }
 
 
+
 void CleanUp(void)
 {
     MacUILib_clearScreen();  
 
-     MacUILib_Delay(50000);   
+    MacUILib_Delay(50000);   
 
-     MacUILib_printf("You scored: %d ", object->getPlayerScore());
+    MacUILib_printf("You scored: %d ", object->getPlayerScore());
 
     MacUILib_Delay(50000);  
 
-  
     MacUILib_uninit();
-
-    
-
 
     delete myGM;
     delete object;
